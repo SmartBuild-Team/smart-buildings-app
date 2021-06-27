@@ -28,7 +28,7 @@ public class WindowPicker extends JDialog implements ActionListener{
 
         setTitle(""+space.get("name"));
 
-        String headerText = "Nom de batiment: " + building.get("name") + " / Nom d'Ã©tage: " + floor.get("name") + " - Nom de salle:" + space.get("name");
+        String headerText = "Nom de batiment: " + building.get("name") + " / Nom d'etage: " + floor.get("name") + " - Nom de salle:" + space.get("name");
         MenuItem header = new MenuItem(headerText);
         content.add(header, BorderLayout.PAGE_START);
 

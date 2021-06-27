@@ -50,4 +50,9 @@ public class Client {
         logger.info("Client is running (testMode = {}) ", iTestMode);
 
     }
+
+	public Object sendRequest(String request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -157,7 +157,7 @@ public class CompanyFrame extends JPanel {
 
     private void copyRightText(JPanel panel1) {
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        JLabel cr = new JLabel("SmartBuilding © 2020 - " + year);
+        JLabel cr = new JLabel("SmartBuilding Â© 2020 - " + year);
         cr.setForeground(Ui.OFFWHITE);
         cr.setOpaque(false);
         cr.setFont(Ui.FONT_COPYRIGHT);

@@ -11,24 +11,26 @@ public class WindowConfig extends JDialog  {
     private final Logger logger = LoggerFactory.getLogger(WindowConfig.class.getName());
     private JRadioButton wClosed, wMOpened, wOpened, sClosed, sOpened, tAuto, tManual, tpFChoice, tpSChoice;
     private ButtonGroup wG, wT, wS;
+    private JPanel actuel;
+    private JTable table ;
 
     public WindowConfig(Frame frame, int positionID) {
         super(frame);
         this.setSize(1000, 1000);
         this.setPreferredSize(this.getSize());
 
-        JPanel content = new JPanel(new BorderLayout(40, 40));
+       JPanel content = new JPanel(new BorderLayout(40, 40));
         JPanel header = new JPanel(new GridLayout(2,1,20,20));
         String[][] rows = {
-                { "Etat de fenetre", "FermÃ©" },
-                { "Store fermÃ©", "10%" },
-                { " Fenetre teintÃ©", "10%" },
-                { "T intÃ©rieur", "25 Â°C" },
-                { "T extÃ©rieur", "25 Â°C" }
+                { "Etat de fenetre", "Fermé" },
+                { "Store fermé", "10%" },
+                { " Fenetre teinté", "10%" },
+                { "T interieur", "25 °C" },
+                { "T exterieur", "25 °C" }
         };
-        JTable table = new JTable(rows, new String[] { "-", "-" });
-        header.add(table);
-        header.add(new JButton("Actualiser"));
+        table = new JTable(rows, new String[] { "-", "-" });
+        //header.add(table);
+        //header.add(new JButton("Actualiser"));
 
         content.add(header, BorderLayout.NORTH);
 
@@ -36,26 +38,31 @@ public class WindowConfig extends JDialog  {
 
         JPanel wTab = new JPanel();
         wTab.setLayout(new BoxLayout(wTab, BoxLayout.Y_AXIS));
+        
         wG = new ButtonGroup();
-        wClosed = new JRadioButton("fenÃ¨tre fermÃ©e");
-        wMOpened = new JRadioButton("fenÃ¨tre vers ouverte");
-        wOpened = new JRadioButton("fenÃ¨tre ouverte");
+        wClosed = new JRadioButton("fenetre fermé");
+        wMOpened = new JRadioButton("fenetre vers ouverte");
+        wOpened = new JRadioButton("fenetre ouverte");
 
         wG.add(wClosed); wG.add(wMOpened); wG.add(wOpened);
 
-        wTab.add(new JLabel("Choisissez un choix pour l'ouverture de fenetre"));
+        wTab.add(new JLabel("veuillez Choisir un choix pour l'ouverture de fenetre"));
         wTab.add(Box.createRigidArea(new Dimension(5, 20)));
         wTab.add(wClosed);
         wTab.add(Box.createRigidArea(new Dimension(5, 20)));
         wTab.add(wMOpened);
         wTab.add(Box.createRigidArea(new Dimension(5, 20)));
         wTab.add(wOpened);
-        tp.addTab("FenÃªtre", wTab);
+        
+        
+        tp.addTab("Fenetre", wTab);
         tp.addTab("Store", new JLabel("store tab here"));
         tp.addTab("Teinte", new JLabel("Teinte tab here"));
         tp.addTab("Temperature", new JLabel("Temperature tab here"));
-
+        tp.addTab("Etats_actuel_configuration_fenetre", wTab.add(panelActuel()));
         content.add(tp, BorderLayout.CENTER);
+        
+       
 
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton confirmBtn = new JButton("Confirmer");
@@ -70,6 +77,15 @@ public class WindowConfig extends JDialog  {
         this.setVisible(true);
         this.pack();
         this.setLocationRelativeTo(frame);
+    }
+    
+    private JPanel panelActuel() {
+    	actuel= new JPanel( new BorderLayout());
+    	
+    	actuel.add(table, BorderLayout.NORTH);
+    	actuel.add(new JButton("Actualiser"), BorderLayout.SOUTH);
+    	
+    	return actuel;
     }
 
 
