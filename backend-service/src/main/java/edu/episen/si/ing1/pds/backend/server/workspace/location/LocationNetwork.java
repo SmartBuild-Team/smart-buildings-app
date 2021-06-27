@@ -90,10 +90,10 @@ public class LocationNetwork {
                  
                
                  
-                 
+                 //request to book a workspace by changing the state and adding the workspace in the table reservation
             case "done_reservation":
             			String query = "UPDATE workspace SET workspace_state = 'indisponible' where id_workspace = ?";
-            			//String nbreserv = "SELECT COUNT(*) FROM reservations";
+            			
             			Integer id_compa = request.getCompanyId();
             			
             			String queryInsert	= "INSERT INTO reservations (id_companies,id_workspace) VALUES(?,?)";
@@ -130,7 +130,7 @@ public class LocationNetwork {
 
                 
                 
-                
+                //request to recover the number of reservation
             case "nb_reservation_list":
             	List<Map<String,Object>> numb_res = new ArrayList<>();
             	Integer id_compan = request.getCompanyId();
@@ -148,6 +148,7 @@ public class LocationNetwork {
             	
     			break;
     			
+    			//request to get the list of the different reservation that are made by a company
             case "reservation_list":
             	Integer last_time = request.getData().get("last_id_res").asInt();
             	Integer id_company = request.getCompanyId();
@@ -174,6 +175,7 @@ public class LocationNetwork {
             	break;
                 
             	
+            	//request to delete a reservation
             case "kill_reservation":
             	List<Map<String,Object>> res_kill = new ArrayList<>();
             	Integer id_res_to_kill = request.getData().get("idres").asInt();
@@ -190,7 +192,7 @@ public class LocationNetwork {
             	
             	
             	
-                
+                //request to get the list of the different buildings
             case "buildings_list":
             	List<Map> response = new ArrayList<>();                            
                 Statement statement12 = connection.createStatement();
@@ -207,7 +209,7 @@ public class LocationNetwork {
                 
                 
                 
-              
+              //request to get the list of the different floor of a building
             case "floors_list":
             	List<Map> response13 = new ArrayList<>(); 
             	
@@ -227,7 +229,7 @@ public class LocationNetwork {
                 
                 
                 
-              
+              //request to get a the number of workspace at a floor
             case "numb_workspace":
             	List<Map> response14 = new ArrayList<>(); 
             	Integer bui = request.getData().get("building_nb").asInt();
@@ -244,6 +246,8 @@ public class LocationNetwork {
                  writer.println(msg14);
     			break;
     			
+    			
+    			//request made to send the state, the type and the number of the different workspace of a floor
             case "wp_esp":
             	List<Map> response15 = new ArrayList<>(); 
             	Integer buil = request.getData().get("building_nb").asInt();

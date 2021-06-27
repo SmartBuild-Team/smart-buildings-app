@@ -25,7 +25,7 @@ public class Gere implements Way {
 		JPanel pg = new JPanel( );
 		
 		
-		Request request = new Request();
+		Request request = new Request();//asking for the number of reservation of a company
 		request.setEvent("nb_reservation_list");
 		Response response = Utils.sendRequest(request);
 		List<Map> data=(List<Map>) response.getMessage();
@@ -51,13 +51,13 @@ public class Gere implements Way {
 		 }
 		 final int[] fori = nbres;
 		 
-		 pg.setLayout(new GridLayout(nb_reserv, 1,20,20));
+		 pg.setLayout(new GridLayout(nb_reserv, 1,20,20)); //generating the layout 
 		 
 		 
 		 
 		 int last_id_reserv=0;
 		 for(int i=0;i<nb_reserv;i++) {
-			 
+			 //initialing the different variable
 			 proposition[i]=new JLabel("");
 				left[i]= new JButton("rendre espace");
 				id_wsp[i] =0;
@@ -69,7 +69,7 @@ public class Gere implements Way {
 				
 				
 				
-				
+				//asking for the data of the reservation
 				Request requestlist = new Request();
 			requestlist.setEvent("reservation_list");
 			Map<String, Object> rl = new HashMap<>();
@@ -95,7 +95,7 @@ public class Gere implements Way {
 			
 		 
 			 int a = i;
-			 left[i].addActionListener(new ActionListener() {
+			 left[i].addActionListener(new ActionListener() {// creation of the possibilite to delete a reservation
 				
 				 int b =fori[a];
 				 public void actionPerformed(ActionEvent e) {

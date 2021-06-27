@@ -51,18 +51,18 @@ public class MapCity implements Way {
 		panm_north.add(floor);
 		panm_north.add(validplace);
 		
-		validplace.addActionListener(new ActionListener() {
+		validplace.addActionListener(new ActionListener() {//creating the reaction to the button validplace
 			public void actionPerformed(ActionEvent e) {
 				try {
-				if(build.getText().equals("")||floor.getText().equals("")) {
+				if(build.getText().equals("")||floor.getText().equals("")) {//creating a message of error
 					JOptionPane.showMessageDialog(new JPanel(), "Tous les champs ne sont pas bien renseignes", "Erreur", JOptionPane.ERROR_MESSAGE);
 				}else {
 				panm_center.removeAll();
 				bui_list.clear();
-				Integer bui = Integer.valueOf(build.getText());
-				//System.out.print(bui);
+				Integer bui = Integer.valueOf(build.getText());//getting the data that the user enter
+				
 				Integer floo = Integer.valueOf(floor.getText());
-				//System.out.print(floo);
+				
 				
 				Request request = new Request();
 				request.setEvent("buildings_list");
@@ -71,11 +71,11 @@ public class MapCity implements Way {
 		        for(Map ex:data) {
 		        	bui_list.add(Integer.valueOf(ex.get("name").toString()));
 		        }
-		        //System.out.print(bui_list);
 		        
-		        if(bui_list.contains(bui)) {
+		        
+		        if(bui_list.contains(bui)) {//checking if the number of the building exist
 		        	floor_list.clear();
-		        	//System.out.print("cake");
+		        
 		        	
 		        	Request req = new Request();
 		            req.setEvent("floors_list");
@@ -88,8 +88,8 @@ public class MapCity implements Way {
 			        	floor_list.add(Integer.valueOf(ex.get("number").toString()));
 			        }
 			        
-			       // System.out.print(floor_list);
-		           if(floor_list.contains(floo)) {
+			       
+		           if(floor_list.contains(floo)) {//checking if the number of the floor exist
 		        	   
 		        	   Request request2 = new Request();
 		        	     request2.setEvent("numb_workspace");
@@ -104,12 +104,12 @@ public class MapCity implements Way {
 		        				nbwp=k;
 		        			}
 		        	   
-		        			panm_center.setLayout(new GridLayout(nbwp/2, 1,20,20));
-		        			state_list.clear();
+		        			panm_center.setLayout(new GridLayout(nbwp/2, 1,20,20));//setting the layout
+		        			state_list.clear();//initialing the different list
 		        			nbwsp_list.clear();
 		        			type_list.clear();
 		        			Request request3 = new Request();
-		        			request3.setEvent("wp_esp");
+		        			request3.setEvent("wp_esp");//asking for the data of the different workspace at a floor
 		        			Map<String, Object> rwp = new HashMap<>();
 			        	     rwp.put("building_nb",bui);
 			        	     rwp.put("floor_nb",floo);
@@ -122,16 +122,17 @@ public class MapCity implements Way {
 			        				type_list.add(ex.get("type").toString());
 			        			}
 			        	  
-			        	     
+			        	    
+			        	    
 		        			int x = 0;
 		        			for (int i = 0; i<1;i++) {
-								for (int j = 0; j< nbwp;j++) {
+								for (int j = 0; j< nbwp;j++) {//adding the data in the different Box
 									
 									Box box = Box.createVerticalBox();
-									//on fait la requete pour recupérer les salles
+									
 									String state = state_list.get(x);
 									if(state.equals("disponible")) {
-										box.setBorder(new LineBorder(Color.green));
+										box.setBorder(new LineBorder(Color.green));//generating a color for the availability
 										box.setBackground(Color.green);
 									}else {
 										box.setBorder(new LineBorder(Color.red));
@@ -143,12 +144,12 @@ public class MapCity implements Way {
 								}
 							}
 		        			
-		        	   //System.out.print(nbwp);
+		        	   
 		        	   panm_center.invalidate();
 		        	      panm_center.validate();
 		        	      panm_center.repaint();
 		        	  
-		           } else {
+		           } else {//creating error message
 		        	   JOptionPane.showMessageDialog(new JPanel(), "les étages possibles pour le bâtiment "+ bui+" sont : "+ floor_list, "Erreur", JOptionPane.ERROR_MESSAGE);
 		           }
 		        	

@@ -21,7 +21,7 @@ import edu.episen.si.ing1.pds.client.utils.Utils;
 public class Locat implements Way {
 	
 
-	JCheckBox bureau_ferme =new JCheckBox("bureau ferme");
+	JCheckBox bureau_ferme =new JCheckBox("bureau ferme");//creation the different parameter
     JCheckBox openspace =new JCheckBox("openspace");
     JTextField tailleMax = new JTextField(10);
   
@@ -60,7 +60,7 @@ public class Locat implements Way {
 		    valid.addActionListener(new ActionListener(){
 		    	public void actionPerformed(ActionEvent e) {
 		    		try {
-		    	if(!bureau_ferme.isSelected() && !openspace.isSelected()){
+		    	if(!bureau_ferme.isSelected() && !openspace.isSelected()){//creating error message
 		    		JOptionPane.showMessageDialog(new JPanel(), "Tous les champs ne sont pas bien renseignes", "Erreur", JOptionPane.ERROR_MESSAGE);
 		    		System.out.println("LUDO EST UN CON ");
 		    	}else if (tailleMax.getText().equals("")||persMax.getText().equals("")||prixMax.getText().equals("")){
@@ -94,7 +94,7 @@ public class Locat implements Way {
 						proposition[i]=new JLabel("");
 						reserv[i]= new JButton("réserver");
 						
-						while(totsize<tmax && totpers<persmax &&totprice<prixmax ){
+						while(totsize<tmax && totpers<persmax &&totprice<prixmax ){//generating the different offer by searching random workspace is the database
 						valid.setEnabled(x);
 						if(bureau_ferme.isSelected() && openspace.isSelected()) {
 							
@@ -184,7 +184,7 @@ public class Locat implements Way {
 				          final List <Integer> listeC= liste2;
 				        
 				          
-				         reserv[0].addActionListener(new ActionListener(){
+				         reserv[0].addActionListener(new ActionListener(){//doing the reservation on each button 
 				        
 				        	  public void actionPerformed(ActionEvent e) {
 				        		  if(reserv[0].getText().equalsIgnoreCase("réservation acceptée !")){
@@ -203,12 +203,13 @@ public class Locat implements Way {
 					        			
 					        			
 					        			Response response = Utils.sendRequest(request);
+					        			reserv[0].setText("réservation acceptée !");
+				          
 					        		  } catch(Exception event) {
 				                    	  event.printStackTrace();
 				                      }
 				        			
-				        		  reserv[0].setText("réservation acceptée !");
-				          
+				        		  
 				          
 				        	  }}
 				          });
@@ -228,12 +229,13 @@ public class Locat implements Way {
 				        			request.setData(hm);
 				        	 
 				        			Response response = Utils.sendRequest(request);
+				        			reserv[1].setText("réservation acceptée !");
 				        			  } catch(Exception event) {
 				                    	  event.printStackTrace();
 				                      }
 				        		  
 				        		
-				        		  reserv[1].setText("réservation acceptée !");
+				        		 
 				          
 				          
 				        	  }}
@@ -255,12 +257,13 @@ public class Locat implements Way {
 					        			request.setData(hm);
 					        	 
 					        			Response response = Utils.sendRequest(request);
+					        			reserv[2].setText("réservation acceptée !");
 					        			  } catch(Exception event) {
 					                    	  event.printStackTrace();
 					                      }
 					        		  
 					        		
-					        		  reserv[2].setText("réservation acceptée !");
+					        		  
 				          
 				          
 				        		  }  }
@@ -274,7 +277,7 @@ public class Locat implements Way {
 				p.validate();
 				p.repaint();
 				}
-		    		}catch (NumberFormatException f) {
+		    		}catch (NumberFormatException f) {//adding error message
 						JOptionPane.showMessageDialog(new JPanel(), "Tous les champs ne sont pas bien renseignes, mauvais type", "Erreur", JOptionPane.ERROR_MESSAGE);
 		            }
 		    	}
@@ -283,7 +286,7 @@ public class Locat implements Way {
 		    
 retButton.addActionListener(new ActionListener() {
 				
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e) {//re-creating the first page
 					p.removeAll();
 					
 					p.add(bureau_ferme);
@@ -303,7 +306,7 @@ retButton.addActionListener(new ActionListener() {
 				}
 			});
     
-    p.add(bureau_ferme);
+    p.add(bureau_ferme);//initialing the first page
    	p.add(openspace);
   
     p.add(Tmax);
