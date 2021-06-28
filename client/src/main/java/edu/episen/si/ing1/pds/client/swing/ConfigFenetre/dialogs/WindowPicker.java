@@ -1,5 +1,6 @@
-package edu.episen.si.ing1.pds.client.swing.ConfigFenetre;
+package edu.episen.si.ing1.pds.client.swing.ConfigFenetre.dialogs;
 
+import edu.episen.si.ing1.pds.client.swing.ConfigFenetre.tools.WindowRequests;
 import edu.episen.si.ing1.pds.client.swing.global.MenuItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.List;
 
-public class WindowPicker extends JDialog implements ActionListener{
-
+public class WindowPicker extends JDialog implements ActionListener {
     private final Logger logger = LoggerFactory.getLogger(WindowPicker.class.getName());
     private JFrame frame;
     public WindowPicker(JFrame frame, Map<String, Map> spaceInfo){
@@ -28,7 +28,7 @@ public class WindowPicker extends JDialog implements ActionListener{
 
         setTitle(""+space.get("name"));
 
-        String headerText = "Nom de batiment: " + building.get("name") + " / Nom d'etage: " + floor.get("name") + " - Nom de salle:" + space.get("name");
+        String headerText = "Nom de batiment: " + building.get("name") + " / Nom d'étage: " + floor.get("name") + " - Nom de salle:" + space.get("name");
         MenuItem header = new MenuItem(headerText);
         content.add(header, BorderLayout.PAGE_START);
 
@@ -73,6 +73,4 @@ public class WindowPicker extends JDialog implements ActionListener{
             new WindowConfig(frame, id);
         }
     }
-
-
 }

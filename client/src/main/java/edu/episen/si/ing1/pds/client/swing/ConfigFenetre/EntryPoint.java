@@ -1,4 +1,6 @@
 package edu.episen.si.ing1.pds.client.swing.ConfigFenetre;
+
+import edu.episen.si.ing1.pds.client.swing.ConfigFenetre.dialogs.WindowPicker;
 import edu.episen.si.ing1.pds.client.swing.cards.access.AccessRequests;
 import edu.episen.si.ing1.pds.client.swing.global.Main;
 import edu.episen.si.ing1.pds.client.swing.global.Navigate;
@@ -15,8 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-public class EntryPoint implements Navigate  {
-
+public class EntryPoint implements Navigate {
     private final Logger logger = LoggerFactory.getLogger(EntryPoint.class.getName());
     private final Main app;
     private JButton okBtn;
@@ -45,7 +46,7 @@ public class EntryPoint implements Navigate  {
                     setText(building.get("name").toString());
                 }
                 if(index == -1 && value == null)
-                    setText("Selectionner batiment");
+                    setText(" veuillez Selectionner batiment");
 
                 return this;
             }
@@ -64,7 +65,7 @@ public class EntryPoint implements Navigate  {
                     setText(floor.get("name").toString());
                 }
                 if(index == -1 && value == null)
-                    setText("Selectionner etage");
+                    setText(" veuillez Selectionner etage");
 
                 return this;
             }
@@ -82,7 +83,7 @@ public class EntryPoint implements Navigate  {
                     setText(desk.get("name").toString());
                 }
                 if(index == -1 && value == null)
-                    setText("Selectionner espace de travail");
+                    setText(" veuillez Selectionner espace de travail");
 
                 return this;
             }
@@ -146,7 +147,7 @@ public class EntryPoint implements Navigate  {
         context.add(workspacePanel);
     }
 
-    @Override
+    @Override 
     public void actionPerformed(ActionEvent e) {
             if(e.getSource() instanceof JButton) {
                 JButton btn = (JButton) e.getSource();

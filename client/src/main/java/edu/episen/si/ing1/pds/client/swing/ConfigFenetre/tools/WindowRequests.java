@@ -1,4 +1,5 @@
-package edu.episen.si.ing1.pds.client.swing.ConfigFenetre;
+package edu.episen.si.ing1.pds.client.swing.ConfigFenetre.tools;
+
 import edu.episen.si.ing1.pds.client.network.Request;
 import edu.episen.si.ing1.pds.client.network.Response;
 import edu.episen.si.ing1.pds.client.utils.Utils;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class WindowRequests {
-	public static List<Map>  getWindowsByWS(int spaceId){
+    public static List<Map>  getWindowsByWS(int spaceId){
         Request request = new Request();
         request.setEvent("windows_by_space_id");
         Map<String, Integer> hm = new HashMap<>();
@@ -17,5 +18,14 @@ public class WindowRequests {
         Response response = Utils.sendRequest(request);
         return (List<Map>) response.getMessage();
     }
-
+    public static Map<String, Map> getWindowConfig(int positionID) {
+        Request request = new Request();
+        request.setEvent("window_config_info");
+        Map<String, Integer> hm = new HashMap<>();
+        hm.put("position_id", positionID);
+        request.setData(hm);
+        Response response = Utils.sendRequest(request);
+        return (Map<String, Map>) response.getMessage();
 }
+}
+
