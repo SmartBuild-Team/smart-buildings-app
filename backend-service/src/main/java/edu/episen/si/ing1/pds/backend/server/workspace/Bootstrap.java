@@ -3,7 +3,6 @@ package edu.episen.si.ing1.pds.backend.server.workspace;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.episen.si.ing1.pds.backend.server.network.Request;
 import edu.episen.si.ing1.pds.backend.server.utils.Utils;
-import edu.episen.si.ing1.pds.backend.server.workspace.ConfigFenetre.ConfigWindowNetwork;
 import edu.episen.si.ing1.pds.backend.server.workspace.cards.Network;
 import edu.episen.si.ing1.pds.backend.server.workspace.cards.access.network.AccessNetwork;
 import edu.episen.si.ing1.pds.backend.server.workspace.cards.card.network.CardNetwork;
@@ -11,11 +10,12 @@ import edu.episen.si.ing1.pds.backend.server.workspace.cards.role.network.RoleNe
 import edu.episen.si.ing1.pds.backend.server.workspace.cards.user.network.UsersNetwork;
 import edu.episen.si.ing1.pds.backend.server.workspace.location.LocationNetwork;
 import edu.episen.si.ing1.pds.backend.server.workspace.mapping.MappingNetwork;
-
+import edu.episen.si.ing1.pds.backend.server.workspace.windows.ConfigWindowNetwork;
 
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.*;
+
 
 public class Bootstrap {
     public Bootstrap(Request request, Connection connection, PrintWriter writer) throws Exception {

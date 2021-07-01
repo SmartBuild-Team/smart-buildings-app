@@ -18,37 +18,46 @@ import edu.episen.si.ing1.pds.backend.server.utils.Utils;
 
 public class ConfigWindowNetwork {
 	private String id;
+	private String vtemp_debut;
+	private String ptemp;
+	private String ptemp_augmente;
+	private String vtemp_augment;
+	private String valeur_debut;
+	private String pourcentage_debut;
+	private String valeur_augment;
+	private String pourcentage_augmente;
 
     public ConfigWindowNetwork(Request request, Connection connection, PrintWriter writer) throws Exception {
         String event = request.getEvent();
         ObjectMapper mapper = new ObjectMapper();
-        if(event.equalsIgnoreCase("data_sensor _list1")) {
-            try {
-                List<Map> response = new ArrayList<>();
-                JsonNode data = request.getData();
-                int work_id = data.get("window_id").asInt();
-                String sql = "select * from setting WHERE window_id="+id;
-                String sql1 =  "select inside_temperature, sun_degree, outside_temperature from windows  inner join data_sensor d on id=window_id where id="+id;
-                PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setInt(1, request.getCompanyId());
-                statement.setInt(2, work_id);
-                ResultSet rs = statement.executeQuery();
-                while(rs.next()) {
-                    Map hm = new HashMap();
-                    response.add(hm);
-                }
+        if(event.equalsIgnoreCase("store")) {
+            List<Map> response = new LinkedList<>();
+            //int spaceId = request.getData().get("space_id").asInt();
+            String sql = "UPDATE configuration SET blind_level_start = " + vtemp_debut+ ", blind_percentage_start = "+ ptemp + ", blind_level_add = " + vtemp_augment + ", blind_percentage_add = " + ptemp_augmente + " WHERE id = 1";
 
-
-                Map responseMsg = Utils.responseFactory(response, event);
-                String serializedMsg = mapper.writeValueAsString(responseMsg);
-                writer.println(serializedMsg);
-
-            } catch (Exception throwables) {
-                throwables.printStackTrace();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            //statement.setInt(1, spaceId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                LinkedHashMap<String, Object> lhm = new LinkedHashMap<>();
+                lhm.put("vtemp_debut", rs.getInt("valeurtemp_debut"));
+                lhm.put("space_id", rs.getInt("id_workspace"));
+                lhm.put("ptemp", rs.getInt("pourcentagetemp_debut"));
+                lhm.put("vtemp_augment", rs.getInt("valeurtemp_avance"));
+                lhm.put("ptemp_augmente", rs.getInt("pourcentagetemp_avance"));
+                
+                response.add(lhm);
             }
+            Map responseMsg=Utils.responseFactory(response, event);
+            String serializedMsgString=mapper.writeValueAsString(responseMsg);
+            writer.println(serializedMsgString);
+
+        
 
         }
-        else if(event.equalsIgnoreCase("windows_by_space_id")) {
+        
+    
+         else if(event.equalsIgnoreCase("windows_by_space_id")) {
             List<Map> response = new LinkedList<>();
             int spaceId = request.getData().get("space_id").asInt();
             String sql = "SELECT *,  case when (SELECT is_window FROM equipments WHERE equipments.id_equipments = ws.equipment_id) then true else false end as is_window FROM workspace_equipments ws WHERE  id_workspace = ?";
@@ -73,24 +82,34 @@ public class ConfigWindowNetwork {
             writer.println(serializedMsgString);
 
         }
-        else if(event.equalsIgnoreCase("data_sensor _list2")) {
-            try {
-                List<Map> response = new ArrayList<>();
-                Statement statement = connection.createStatement();
-                ResultSet rs = statement.executeQuery("select window_state,status_blind,status_stain,inside_temperature,outside_temperature,sunzDegree from windows  inner join data_sensor  on id=window_id where id=+id");
+    
+        if(event.equalsIgnoreCase("teinte")) {
+            List<Map> response = new LinkedList<>();
+          //int spaceId = request.getData().get("space_id").asInt();
+            String sql =  "UPDATE configuration SET opacity_level_start = " + valeur_debut+ ", opacity_percentage_start = "+ pourcentage_debut + ", opacity_level_add = " + valeur_augment + ", opacity_percentage_add = " + pourcentage_augmente + " WHERE id = 1";
 
-                while(rs.next()) {
-                    Map hm = new HashMap();
-                    response.add(hm);
-                }
-                Map responseMsg=Utils.responseFactory(response, event);
-                String serializedMsgString=mapper.writeValueAsString(responseMsg);
-                writer.println(serializedMsgString);
-
-            } catch (Exception throwables) {
-                throwables.printStackTrace();
+            PreparedStatement statement = connection.prepareStatement(sql);
+           // statement.setInt(1, spaceId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                LinkedHashMap<String, Object> lhm = new LinkedHashMap<>();
+                lhm.put("valeur_debut", rs.getInt("valeur_debut"));
+                //lhm.put("space_id", rs.getInt("id_workspace"));
+                lhm.put("pourcentage_debut", rs.getInt("pourcentage_debut"));
+                lhm.put("valeur_augment", rs.getInt("valeur_avance"));
+                lhm.put("pourcentage_augmente", rs.getInt("pourcentage_avance"));
+                
+                response.add(lhm);
             }
+            Map responseMsg=Utils.responseFactory(response, event);
+            String serializedMsgString=mapper.writeValueAsString(responseMsg);
+            writer.println(serializedMsgString);
+
+        
+
         }
+        
+    
             else if(event.equalsIgnoreCase("window_config_info")) {
                 String sql = "SELECT w.* FROM setting s JOIN windows w on w.id = s.id_window WHERE s.position_id = ?";
                 Map<String, Map> data = new HashMap<>();
